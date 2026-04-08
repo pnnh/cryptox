@@ -1,7 +1,8 @@
 import {transKey} from "@/components/common/locales/normal";
+import {transSiteName} from "@/components/common/locales/texts";
 
 export function pageTitle(lang: string, title?: string | null | undefined): string {
-    const slogan = transKey(lang, "siteName")
+    const slogan = transKey(lang, transSiteName)
     if (!title || title.startsWith(slogan)) {
         return slogan
     }

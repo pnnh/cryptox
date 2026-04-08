@@ -1,5 +1,4 @@
 import {css} from "@/gen/styled/css";
-import Image from 'next/image'
 import React from "react";
 import {SiteNavMenu} from "@/components/server/content/partials/profile";
 import {PSLanguageSelector} from "./language";
@@ -18,9 +17,6 @@ export async function ContentPublicNavbar({pathname, searchParams, lang,}: {
 
     return <div className={styles.navHeader}>
         <div className={styles.leftNav}>
-            <a className={styles.brandLink} href={`/`}>
-                <Image src='/images/logo.png' alt='logo' priority={false} fill={true} sizes={'48px,48px'}/>
-            </a>
             <SiteNavMenu lang={lang} searchParams={searchParams}/>
         </div>
         <div className={styles.rightNav}>

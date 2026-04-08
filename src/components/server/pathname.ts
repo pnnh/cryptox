@@ -2,7 +2,8 @@ import {headers} from "next/headers";
 
 export async function getPathname(): Promise<string> {
     const headersList = await headers();
-    let pathname = headersList.get('x-pathname') || "";
+
+    let pathname = headersList.get("x-pathname") || "";
     if (pathname) {
         return pathname;
     }
@@ -27,7 +28,3 @@ export async function getSearchString(): Promise<string> {
     return headersList.get('x-search') || "";
 }
 
-export async function getClientIp(): Promise<string> {
-    const headersList = await headers()
-    return headersList.get('x-ip') || 'unknown'
-}

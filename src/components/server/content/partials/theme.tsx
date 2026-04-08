@@ -4,6 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Contrast } from 'lucide-react';
 import { clientSetCurrentTheme, ThemeType } from "@/components/client/theme";
 import { transKey } from "@/components/common/locales/normal";
+import {transAutoTheme, transDarkTheme, transLightTheme} from "@/components/common/locales/texts";
 import { css } from "@/gen/styled/css";
 
 
@@ -23,17 +24,17 @@ export function ThemeSwitch({ themeName, lang }: { themeName: string, lang: stri
                 <DropdownMenuItem onClick={() => switchTheme('auto')}
                     data-selected={themeName === 'auto' || undefined}
                     className="data-[selected]:font-semibold">
-                    {transKey(lang, "AutoTheme")}
+                    {transKey(lang, transAutoTheme)}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => switchTheme('light')}
                     data-selected={themeName === 'light' || undefined}
                     className="data-[selected]:font-semibold">
-                    {transKey(lang, "LightTheme")}
+                    {transKey(lang, transLightTheme)}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => switchTheme('dark')}
                     data-selected={themeName === 'dark' || undefined}
                     className="data-[selected]:font-semibold">
-                    {transKey(lang, "DarkTheme")}
+                    {transKey(lang, transDarkTheme)}
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

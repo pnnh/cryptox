@@ -3,21 +3,28 @@
 import * as React from 'react';
 import {Button} from "@/components/ui/button";
 import {transKey} from "@/components/common/locales/normal";
-import {rsaServerDecode, rsaServerEncode} from "./server";
+import {
+    transToolsAesRandomKey,
+    transToolsCommonInputPlaceholder,
+    transToolsCommonResultPlaceholder,
+    transToolsRsaDecode,
+    transToolsRsaEncode,
+    transToolsRsaKeyPlaceholder
+} from "@/components/common/locales/texts";
+import {IRSAKey, rsaServerDecode, rsaServerEncode, rsaServerGenerateKey} from "./server";
 import {css} from "@/gen/styled/css";
-import {Input} from "@/components/ui/input";
 import {ArrowUpDown} from "lucide-react";
 
 export default function RsaComponent({lang,}: { lang: string }) {
     const [source, setSource] = React.useState('');
     const [output, setOutput] = React.useState('');
-    const [rsaKey, setAesKey] = React.useState('')
+    const [rsaKey, setAesKey] = React.useState<IRSAKey>({privateKey: '', publicKey: ''})
 
     const encodeFunc = () => {
         if (!source) {
             return;
         }
-        rsaServerEncode(source, 'hello12345678ab').then((encodedText) => {
+        rsaServerEncode(source, rsaKey.publicKey).then((encodedText) => {
             setOutput(encodedText);
         });
     }
@@ -25,26 +32,50 @@ export default function RsaComponent({lang,}: { lang: string }) {
         if (!source || !rsaKey) {
             return;
         }
-        rsaServerDecode(source, rsaKey).then((decodedText) => {
+        rsaServerDecode(source, rsaKey.privateKey).then((decodedText) => {
             setOutput(decodedText);
         })
     }
     return <div className={rsaStyles.sha256Page}>
         <h1>RSA Tool</h1>
         <textarea className={rsaStyles.sourceText} placeholder={
-            transKey(lang, "tools.common.inputPlaceholder")
+            transKey(lang, transToolsCommonInputPlaceholder)
         } value={source}
                   onChange={(event) => setSource(event.target.value)}/>
+        <div className={css`
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+        `}>
+
+            <textarea style={{width: 400}} className={rsaStyles.sourceText}
+                      value={rsaKey.publicKey} maxLength={64}
+                      placeholder={transKey(lang, transToolsRsaKeyPlaceholder)}
+                      onChange={(event) =>
+                          setAesKey({
+                              ...rsaKey,
+                              publicKey: event.target.value
+                          })}/>
+
+            <textarea style={{width: 400}} className={rsaStyles.sourceText}
+                      value={rsaKey.privateKey} maxLength={64}
+                      placeholder={transKey(lang, transToolsRsaKeyPlaceholder)}
+                      onChange={(event) =>
+                          setAesKey({
+                              ...rsaKey,
+                              privateKey: event.target.value
+                          })}/>
+        </div>
         <div className={rsaStyles.toolButtons}>
-            <Input id={'AesKeyInput'} style={{width: 400}}
-                   value={rsaKey} maxLength={64}
-                   placeholder={transKey(lang, 'tools.rsa.keyPlaceholder')}
-                   onChange={(event) => setAesKey(event.target.value)}/>
+            <Button size={'sm'}
+                    onClick={() => {
+                        rsaServerGenerateKey().then((newKey) => setAesKey(newKey))
+                    }}>{transKey(lang, transToolsAesRandomKey)}</Button>
             <Button size={'sm'} onClick={encodeFunc}>
-                {transKey(lang, "tools.rsa.encode")}
+                {transKey(lang, transToolsRsaEncode)}
             </Button>
             <Button size={'sm'} onClick={decodeFunc}>
-                {transKey(lang, 'tools.rsa.decode')}
+                {transKey(lang, transToolsRsaDecode)}
             </Button>
             <Button variant="ghost" size="icon" onClick={() => {
                 const currentSource = source;
@@ -55,7 +86,7 @@ export default function RsaComponent({lang,}: { lang: string }) {
             </Button>
         </div>
         <textarea className={rsaStyles.targetText} placeholder={
-            transKey(lang, "tools.common.resultPlaceholder")
+            transKey(lang, transToolsCommonResultPlaceholder)
         } value={output} onChange={(event) =>
             setOutput(event.target.value)}/>
     </div>

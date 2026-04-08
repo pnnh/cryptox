@@ -2,7 +2,6 @@ import React, {CSSProperties} from "react";
 import {css} from "@/gen/styled/css";
 import {transTodo} from "@/components/common/locales/normal";
 import {getPathname} from "@/components/server/pathname";
-import {pageTitle} from "@/components/utils/page";
 
 export async function SiteNavMenu({lang, searchParams}: {
     lang: string,
@@ -10,27 +9,7 @@ export async function SiteNavMenu({lang, searchParams}: {
 }) {
     const pathname = await getPathname()
 
-    const siteLinks = [
-        {name: pageTitle(lang), href: `/${lang}`},
-    ]
     return <div className={styles.siteNavMenu}>
-        <div className={styles.roleButtonContainer}>
-            {
-                siteLinks.map((link) => {
-                    let style: CSSProperties = {}
-                    if (pathname === link.href) {
-                        style = {
-                            color: '#4A95DD',
-                        }
-                    }
-                    return <a key={link.name} className={styles.siteLink} style={style} href={link
-                        .href}>{link.name}</a>
-                })
-            }
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#C6C6C6">
-            <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/>
-        </svg>
         <ArticleNavbar pathname={pathname} lang={lang}/>
     </div>
 }
@@ -55,7 +34,6 @@ function ArticleNavbar({lang, pathname}: {
         })}
     </>
 }
-
 
 const styles = {
     siteNavMenu: css`
@@ -86,43 +64,6 @@ const styles = {
 
         &:hover {
             color: var(--text-primary-color);
-            background-color: var(--action-hover-color);
-        }
-    `,
-    navLinkInBox: css`
-        color: var(--text-primary-color);
-        padding: 8px 16px;
-        text-decoration: none;
-        font-size: 0.95rem;
-        border-bottom: solid 1px var(--divider-color);
-        transition: background-color 0.15s ease;
-
-        &:hover {
-            background-color: var(--action-hover-color);
-        }
-
-        &:last-child {
-            border-width: 0;
-        }
-    `,
-    roleButtonContainer: css`
-        display: flex;
-        flex-direction: row;
-        gap: 4px;
-        justify-content: center;
-        align-items: center;
-    `,
-    siteLink: css`
-        text-decoration: none;
-        color: var(--text-primary-color);
-        cursor: pointer;
-        font-size: 1rem;
-        font-weight: 500;
-        padding: 4px 10px;
-        border-radius: 6px;
-        transition: color 0.2s ease, background-color 0.2s ease;
-
-        &:hover {
             background-color: var(--action-hover-color);
         }
     `,

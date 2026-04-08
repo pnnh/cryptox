@@ -1,7 +1,16 @@
 'use server'
 
-import {nodeDecodeRsa, nodeEncodeRsa} from "@pnnh/atom/nodejs";
+import {nodeDecodeRsa, nodeEncodeRsa, nodeGenerateRsaKeyPair} from "@pnnh/atom/nodejs";
 import {transTodo} from "@/components/common/locales/normal";
+
+export interface IRSAKey {
+    publicKey: string;
+    privateKey: string;
+}
+
+export async function rsaServerGenerateKey(): Promise<IRSAKey> {
+    return nodeGenerateRsaKeyPair()
+}
 
 export async function rsaServerEncode(data: string, key: string): Promise<string> {
     if (!data || !key) {
