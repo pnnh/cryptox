@@ -1,0 +1,112 @@
+'use client'
+
+import * as React from 'react';
+import {Button} from "@/components/ui/button";
+import {transKey} from "@/components/common/locales/normal";
+import {aesServerDecode, aesServerEncode, aesServerGenerateKey} from "./server";
+import {Input} from "@/components/ui/input";
+import {ArrowUpDown} from 'lucide-react';
+import {css} from "@/gen/styled/css";
+
+export default function AesComponent({lang,}: { lang: string, }) {
+    const [source, setSource] = React.useState('');
+    const [output, setOutput] = React.useState('');
+    const [aesKey, setAesKey] = React.useState('')
+
+    const encodeFunc = () => {
+        if (!source || !aesKey) {
+            return;
+        }
+        aesServerEncode(source, aesKey).then((encodedText) => {
+            setOutput(encodedText);
+        });
+    }
+    const decodeFunc = () => {
+        if (!source || !aesKey) {
+            return;
+        }
+        aesServerDecode(source, aesKey).then((decodedText) => {
+            setOutput(decodedText);
+        })
+    }
+    return <div className={aesStyles.sha256Page}>
+        <h1 className={aesStyles.toolTitle}>AES Tool</h1>
+        <textarea className={aesStyles.sourceText} placeholder={
+            transKey(lang, "tools.common.inputPlaceholder")
+        } value={source}
+                  onChange={(event) => setSource(event.target.value)}/>
+        <div className={aesStyles.toolButtons}>
+            <Input id={'AesKeyInput'} style={{width: 400}}
+                   value={aesKey} maxLength={64}
+                   placeholder={transKey(lang, 'tools.aes.keyPlaceholder')}
+                   onChange={(event) => setAesKey(event.target.value)}/>
+            <Button size={'sm'}
+                    onClick={() => {
+                        aesServerGenerateKey().then((newKey) => setAesKey(newKey))
+                    }}>{transKey(lang, 'tools.aes.randomKey')}</Button>
+            <Button size={'sm'} onClick={encodeFunc}>
+                {transKey(lang, 'tools.aes.encode')}
+            </Button>
+            <Button size={'sm'} onClick={decodeFunc}>
+                {transKey(lang, 'tools.aes.decode')}
+            </Button>
+            <Button variant="ghost" size="icon" onClick={() => {
+                const currentSource = source;
+                setSource(output);
+                setOutput(currentSource);
+            }}>
+                <ArrowUpDown size={20}/>
+            </Button>
+        </div>
+        <textarea className={aesStyles.targetText} placeholder={
+            transKey(lang, "tools.common.resultPlaceholder")
+        } value={output} onChange={(event) =>
+            setOutput(event.target.value)}/>
+    </div>
+}
+
+const aesStyles = {
+    sha256Page: css`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        height: 100%;
+        scrollbar-width: thin;
+        overflow-y: auto;
+        overflow-x: hidden;
+    `,
+    toolTitle: css`
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 8px;
+    `,
+    sourceText: css`
+        width: 100%;
+        height: 160px;
+        padding: 8px;
+        flex-shrink: 0;
+        background: #FFFFFF;
+        border: 1px solid #d3d3d3;
+        border-radius: 8px;
+    `,
+    toolButtons: css`
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 16px;
+        flex-shrink: 0;
+        width: 100%;
+    `,
+    targetText: css`
+        width: 100%;
+        height: 160px;
+        padding: 8px;
+        flex-shrink: 0;
+        background: #FFFFFF;
+        border: 1px solid #d3d3d3;
+        border-radius: 8px;
+    `
+}
