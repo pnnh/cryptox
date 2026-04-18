@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils"
 
 /**
  * shadcn/ui Button — RSC-compatible (interactive boundary is here via "use client").
- * Color tokens reference the project's existing CSS variables so the component
- * automatically adapts to light/dark theme via body.darkTheme.
+ * Color tokens reference the project's existing CSS variables.
  */
 const buttonVariants = cva(
     "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md text-sm font-medium " +

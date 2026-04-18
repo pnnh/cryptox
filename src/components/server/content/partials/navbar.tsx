@@ -2,8 +2,6 @@ import {css} from "@/gen/styled/css";
 import React from "react";
 import {SiteNavMenu} from "@/components/server/content/partials/profile";
 import {PSLanguageSelector} from "./language";
-import {ThemeSwitch} from "@/components/server/content/partials/theme";
-import {getServerTheme} from "@/components/server/theme";
 import {getSearchString} from "@/components/server/pathname";
 
 export async function ContentPublicNavbar({pathname, searchParams, lang,}: {
@@ -13,14 +11,12 @@ export async function ContentPublicNavbar({pathname, searchParams, lang,}: {
 }) {
     const searchString = await getSearchString()
     const currentUrl = `${pathname}${searchString}`
-    const themeName = await getServerTheme()
 
     return <div className={styles.navHeader}>
         <div className={styles.leftNav}>
             <SiteNavMenu lang={lang} searchParams={searchParams}/>
         </div>
         <div className={styles.rightNav}>
-            <ThemeSwitch lang={lang} themeName={themeName}/>
             <PSLanguageSelector lang={lang} currentUrl={currentUrl}/>
         </div>
     </div>

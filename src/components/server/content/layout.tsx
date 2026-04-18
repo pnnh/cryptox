@@ -1,10 +1,6 @@
 import React from 'react'
 import {ContentPublicNavbar} from "@/components/server/content/partials/navbar";
 import {css} from "@/gen/styled/css";
-import {SymbolUnknown} from "@pnnh/atom";
-import {useServerConfig} from "@/components/server/config";
-import {AccountModel, anonymousAccount} from "@/components/common/models/account/account";
-import {isErrorLike} from "@/components/common/error";
 
 export const templateBodyId = 'globalTemplateBody'
 
@@ -55,7 +51,10 @@ const styles = {
         flex: 1;
     `,
     bodyContainer: css`
+        max-width: 960px;
+        width: 100%;
         margin: 0 auto;
+        padding: 0 1rem;
         @media screen and (min-width: 120rem) {
             width: calc(120rem - 24rem);
             margin: 0 auto;

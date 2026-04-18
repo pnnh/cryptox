@@ -11,39 +11,6 @@ export const transSiteName: LangTextValue = {
     "zh-TW": "希波"
 }
 
-export const transAutoTheme: LangTextValue = {
-    "zh": "自动",
-    "en": "Auto",
-    "es": "Auto",
-    "fr": "Auto",
-    "ja": "自動",
-    "de-DE": "Auto",
-    "pt-PT": "Auto",
-    "zh-TW": "自動"
-}
-
-export const transLightTheme: LangTextValue = {
-    "zh": "浅色",
-    "en": "Light",
-    "es": "Claro",
-    "fr": "Clair",
-    "ja": "ライト",
-    "de-DE": "Hell",
-    "pt-PT": "Claro",
-    "zh-TW": "淺色"
-}
-
-export const transDarkTheme: LangTextValue = {
-    "zh": "深色",
-    "en": "Dark",
-    "es": "Oscuro",
-    "fr": "Sombre",
-    "ja": "ダーク",
-    "de-DE": "Dunkel",
-    "pt-PT": "Escuro",
-    "zh-TW": "深色"
-}
-
 export const transNeedLogin: LangTextValue = {
     "zh": "请先登录",
     "en": "Please Sign In First",
@@ -108,6 +75,248 @@ export const transToolsAesDecode: LangTextValue = {
     "de-DE": "Entschlüsseln",
     "pt-PT": "Descriptografar",
     "zh-TW": "解密"
+}
+
+export const transCryptoNavAes: LangTextValue = {
+    "zh": "AES",
+    "en": "AES",
+    "es": "AES",
+    "fr": "AES",
+    "ja": "AES",
+    "de-DE": "AES",
+    "pt-PT": "AES",
+    "zh-TW": "AES"
+}
+
+export const transCryptoNavRsa: LangTextValue = {
+    "zh": "RSA",
+    "en": "RSA",
+    "es": "RSA",
+    "fr": "RSA",
+    "ja": "RSA",
+    "de-DE": "RSA",
+    "pt-PT": "RSA",
+    "zh-TW": "RSA"
+}
+
+export const transToolsAesTitle: LangTextValue = {
+    "zh": "AES加密工具",
+    "en": "AES Encryption Tool",
+    "es": "Herramienta de cifrado AES",
+    "fr": "Outil de chiffrement AES",
+    "ja": "AES暗号化ツール",
+    "de-DE": "AES-Verschlüsselungswerkzeug",
+    "pt-PT": "Ferramenta de criptografia AES",
+    "zh-TW": "AES加密工具"
+}
+
+export const transToolsRsaTitle: LangTextValue = {
+    "zh": "RSA加密工具",
+    "en": "RSA Encryption Tool",
+    "es": "Herramienta de cifrado RSA",
+    "fr": "Outil de chiffrement RSA",
+    "ja": "RSA暗号化ツール",
+    "de-DE": "RSA-Verschlüsselungswerkzeug",
+    "pt-PT": "Ferramenta de criptografia RSA",
+    "zh-TW": "RSA加密工具"
+}
+
+export const transToolsRsaPublicKeyPlaceholder: LangTextValue = {
+    "zh": "请输入RSA公钥",
+    "en": "Please enter the RSA public key",
+    "es": "Por favor ingrese la clave pública RSA",
+    "fr": "Veuillez saisir la clé publique RSA",
+    "ja": "RSA公開鍵を入力してください",
+    "de-DE": "Bitte geben Sie den öffentlichen RSA-Schlüssel ein",
+    "pt-PT": "Por favor insira a chave pública RSA",
+    "zh-TW": "請輸入RSA公鑰"
+}
+
+export const transCryptoErrorInput: LangTextValue = {
+    "zh": "输入内容不能为空",
+    "en": "Input cannot be empty",
+    "es": "La entrada no puede estar vacía",
+    "fr": "L'entrée ne peut pas être vide",
+    "ja": "入力内容は空にできません",
+    "de-DE": "Eingabe darf nicht leer sein",
+    "pt-PT": "A entrada não pode estar vazia",
+    "zh-TW": "輸入內容不能為空"
+}
+
+export const transCryptoErrorAesKeyLength: LangTextValue = {
+    "zh": "AES密钥长度需为16/24/32字节",
+    "en": "AES key must be 16, 24, or 32 bytes",
+    "es": "La clave AES debe tener 16, 24 o 32 bytes",
+    "fr": "La clé AES doit être de 16, 24 ou 32 octets",
+    "ja": "AESキーは16/24/32バイトである必要があります",
+    "de-DE": "AES-Schlüssel muss 16, 24 oder 32 Byte lang sein",
+    "pt-PT": "A chave AES deve ter 16, 24 ou 32 bytes",
+    "zh-TW": "AES密鑰長度需為16/24/32字節"
+}
+
+export const transCryptoErrorCryptoFailed: LangTextValue = {
+    "zh": "加密操作失败",
+    "en": "Encryption operation failed",
+    "es": "La operación de cifrado falló",
+    "fr": "L'opération de chiffrement a échoué",
+    "ja": "暗号化操作に失敗しました",
+    "de-DE": "Verschlüsselungsoperation fehlgeschlagen",
+    "pt-PT": "A operação de criptografia falhou",
+    "zh-TW": "加密操作失敗"
+}
+
+export const transCryptoErrorRsaPublicKeyRequired: LangTextValue = {
+    "zh": "请输入RSA公钥",
+    "en": "RSA public key required",
+    "es": "Se requiere clave pública RSA",
+    "fr": "Clé publique RSA requise",
+    "ja": "RSA公開鍵が必要です",
+    "de-DE": "Öffentlicher RSA-Schlüssel erforderlich",
+    "pt-PT": "Chave pública RSA necessária",
+    "zh-TW": "請輸入RSA公鑰"
+}
+
+export const transCryptoErrorRsaPrivateKeyRequired: LangTextValue = {
+    "zh": "请输入RSA私钥",
+    "en": "RSA private key required",
+    "es": "Se requiere clave privada RSA",
+    "fr": "Clé privée RSA requise",
+    "ja": "RSA秘密鍵が必要です",
+    "de-DE": "Privater RSA-Schlüssel erforderlich",
+    "pt-PT": "Chave privada RSA necessária",
+    "zh-TW": "請輸入RSA私鑰"
+}
+
+export const transCryptoErrorRsaTextTooLong: LangTextValue = {
+    "zh": "输入文本过长，可能无法加密",
+    "en": "Input text is too long for RSA encryption",
+    "es": "El texto de entrada es demasiado largo para cifrar con RSA",
+    "fr": "Le texte d'entrée est trop long pour le chiffrement RSA",
+    "ja": "入力テキストがRSA暗号化には長すぎます",
+    "de-DE": "Eingabetext ist zu lang für RSA-Verschlüsselung",
+    "pt-PT": "O texto de entrada é demasiado longo para criptografia RSA",
+    "zh-TW": "輸入文本過長，可能無法加密"
+}
+
+export const transToolsAesMode: LangTextValue = {
+    "zh": "加密模式",
+    "en": "Encryption Mode",
+    "es": "Modo de cifrado",
+    "fr": "Mode de chiffrement",
+    "ja": "暗号化モード",
+    "de-DE": "Verschlüsselungsmodus",
+    "pt-PT": "Modo de criptografia",
+    "zh-TW": "加密模式"
+}
+
+export const transToolsAesKeyLength: LangTextValue = {
+    "zh": "密钥长度",
+    "en": "Key Length",
+    "es": "Longitud de clave",
+    "fr": "Longueur de clé",
+    "ja": "キー長",
+    "de-DE": "Schlüssellänge",
+    "pt-PT": "Tamanho da chave",
+    "zh-TW": "密鑰長度"
+}
+
+export const transToolsRsaKeyLength: LangTextValue = {
+    "zh": "密钥长度",
+    "en": "Key Length",
+    "es": "Longitud de clave",
+    "fr": "Longueur de clé",
+    "ja": "キー長",
+    "de-DE": "Schlüssellänge",
+    "pt-PT": "Tamanho da chave",
+    "zh-TW": "密鑰長度"
+}
+
+export const transToolsRsaViewKeyDetail: LangTextValue = {
+    "zh": "查看密钥详情",
+    "en": "View Key Details",
+    "es": "Ver detalles de clave",
+    "fr": "Voir les détails de la clé",
+    "ja": "キーの詳細を表示",
+    "de-DE": "Schlüsseldetails anzeigen",
+    "pt-PT": "Ver detalhes da chave",
+    "zh-TW": "查看密鑰詳情"
+}
+
+export const transToolsRsaPublicKey: LangTextValue = {
+    "zh": "公钥",
+    "en": "Public Key",
+    "es": "Clave pública",
+    "fr": "Clé publique",
+    "ja": "公開鍵",
+    "de-DE": "Öffentlicher Schlüssel",
+    "pt-PT": "Chave pública",
+    "zh-TW": "公鑰"
+}
+
+export const transToolsRsaPrivateKey: LangTextValue = {
+    "zh": "私钥",
+    "en": "Private Key",
+    "es": "Clave privada",
+    "fr": "Clé privée",
+    "ja": "秘密鍵",
+    "de-DE": "Privater Schlüssel",
+    "pt-PT": "Chave privada",
+    "zh-TW": "私鑰"
+}
+
+export const transToolsCopyResult: LangTextValue = {
+    "zh": "复制结果",
+    "en": "Copy Result",
+    "es": "Copiar resultado",
+    "fr": "Copier le résultat",
+    "ja": "結果をコピー",
+    "de-DE": "Ergebnis kopieren",
+    "pt-PT": "Copiar resultado",
+    "zh-TW": "複製結果"
+}
+
+export const transToolsClearAll: LangTextValue = {
+    "zh": "清空",
+    "en": "Clear All",
+    "es": "Limpiar todo",
+    "fr": "Effacer tout",
+    "ja": "すべてクリア",
+    "de-DE": "Alle löschen",
+    "pt-PT": "Limpar tudo",
+    "zh-TW": "清空"
+}
+
+export const transToolsCopied: LangTextValue = {
+    "zh": "已复制",
+    "en": "Copied",
+    "es": "Copiado",
+    "fr": "Copié",
+    "ja": "コピーしました",
+    "de-DE": "Kopiert",
+    "pt-PT": "Copiado",
+    "zh-TW": "已複製"
+}
+
+export const transToolsHistoryTitle: LangTextValue = {
+    "zh": "操作历史",
+    "en": "Operation History",
+    "es": "Historial de operaciones",
+    "fr": "Historique des opérations",
+    "ja": "操作履歴",
+    "de-DE": "Operationshistorie",
+    "pt-PT": "Histórico de operações",
+    "zh-TW": "操作歷史"
+}
+
+export const transCryptoButtonLoading: LangTextValue = {
+    "zh": "处理中...",
+    "en": "Processing...",
+    "es": "Procesando...",
+    "fr": "En cours...",
+    "ja": "処理中...",
+    "de-DE": "In Bearbeitung...",
+    "pt-PT": "Processando...",
+    "zh-TW": "處理中..."
 }
 
 export const transSignupInvalidUsername: LangTextValue = {

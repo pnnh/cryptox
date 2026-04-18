@@ -5,11 +5,11 @@ import './global.css'
 import {getTargetLang, langEnUS} from "@/components/common/language";
 import {headers} from "next/headers";
 import {JotaiProvider} from "@/components/client/content/provider";
-import {getServerTheme} from "@/components/server/theme";
+import {pageTitle} from "@/components/utils/page";
 
 export default async function RootLayout({
-                                             children,
-                                         }: {
+                                              children,
+                                          }: {
     header?: React.ReactNode,
     children: React.ReactNode,
     footer?: React.ReactNode
@@ -18,10 +18,7 @@ export default async function RootLayout({
     const acceptLang = headersList.get('Accept-Language') || langEnUS
     const lang = getTargetLang(acceptLang, langEnUS)
 
-    const themeName = await getServerTheme()
-    const isDarkTheme = themeName === 'dark'
-
-    return <html>
+    return <html lang={lang}>
     <head>
         <base href="/"/>
         <meta charSet="utf-8"/>
@@ -34,9 +31,9 @@ export default async function RootLayout({
         <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96"/>
         <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg"/>
         <link rel="shortcut icon" href="/favicon.ico"/>
-        <title>HUABLE</title>
+        <title>{pageTitle(lang)}</title>
     </head>
-    <body lang={lang} className={isDarkTheme ? 'darkTheme' : 'lightTheme'}>
+    <body lang={lang}>
     <JotaiProvider>
         {children}
     </JotaiProvider>

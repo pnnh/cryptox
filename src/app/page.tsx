@@ -26,7 +26,9 @@ export default async function Page({searchParams}: {
 
 const pageStyles = {
     pageContainer: css`
-        width: 960px;
-        margin: 0 auto !important;
+        max-width: 960px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 1rem;
     `
 }

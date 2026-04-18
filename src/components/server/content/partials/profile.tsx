@@ -1,6 +1,7 @@
 import React, {CSSProperties} from "react";
 import {css} from "@/gen/styled/css";
-import {transTodo} from "@/components/common/locales/normal";
+import {transKey} from "@/components/common/locales/normal";
+import {transCryptoNavAes, transCryptoNavRsa} from "@/components/common/locales/texts";
 import {getPathname} from "@/components/server/pathname";
 
 export async function SiteNavMenu({lang, searchParams}: {
@@ -19,8 +20,8 @@ function ArticleNavbar({lang, pathname}: {
 }) {
     const homeUrl = `/${lang}`
     const navLinks = [
-        {name: transTodo("AES"), href: homeUrl},
-        {name: transTodo("RSA"), href: `${homeUrl}/rsa`},
+        {name: transKey(lang, transCryptoNavAes), href: homeUrl},
+        {name: transKey(lang, transCryptoNavRsa), href: `${homeUrl}/rsa`},
     ]
     return <>
         {navLinks.map((link) => {
