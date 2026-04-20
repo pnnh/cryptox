@@ -1,8 +1,8 @@
 'use client'
 
 import * as React from 'react';
-import {Button} from "@/components/ui/button";
-import {transKey} from "@/components/common/locales/normal";
+import { Button } from "@/components/ui/button";
+import { transKey } from "@/components/common/locales/normal";
 import {
     transToolsAesRandomKey,
     transToolsCommonInputPlaceholder,
@@ -26,11 +26,12 @@ import {
     transToolsCopied,
     transCryptoButtonLoading,
     transToolsHistoryTitle,
+    transHistoryDisabled,
 } from "@/components/common/locales/texts";
-import {IRSAKey, rsaServerDecode, rsaServerEncode, rsaServerGenerateKey, CryptoResult} from "./server";
-import {css} from "@/gen/styled/css";
-import {ArrowUpDown, Copy, Trash2, Loader2, Eye, History, X} from "lucide-react";
-import {Alert, AlertDescription} from "@/components/ui/alert";
+import { IRSAKey, rsaServerDecode, rsaServerEncode, rsaServerGenerateKey, CryptoResult } from "./server";
+import { css } from "@/gen/styled/css";
+import { ArrowUpDown, Copy, Trash2, Loader2, Eye, History, X } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
     Dialog,
     DialogContent,
@@ -38,19 +39,19 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/components/ui/collapsible";
-import {useAtom} from 'jotai';
-import {cryptoHistoryAtom, addCryptoHistoryItem, CryptoHistoryItem} from "@/components/common/atoms/cryptoHistory";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { useAtom } from 'jotai';
+import { cryptoHistoryAtom, addCryptoHistoryItem, CryptoHistoryItem, isHistoryEnabled } from "@/components/common/atoms/cryptoHistory";
 
 const RSA_KEY_LENGTHS: { value: number; label: string }[] = [
-    {value: 2048, label: '2048'},
-    {value: 4096, label: '4096'},
+    { value: 2048, label: '2048' },
+    { value: 4096, label: '4096' },
 ]
 
-export default function RsaComponent({lang,}: { lang: string }) {
+export default function RsaComponent({ lang, }: { lang: string }) {
     const [source, setSource] = React.useState('');
     const [output, setOutput] = React.useState('');
-    const [rsaKey, setRsaKey] = React.useState<IRSAKey>({privateKey: '', publicKey: ''})
+    const [rsaKey, setRsaKey] = React.useState<IRSAKey>({ privateKey: '', publicKey: '' })
     const [rsaKeyLength, setRsaKeyLength] = React.useState(2048)
     const [error, setError] = React.useState<string | null>(null)
     const [loading, setLoading] = React.useState(false)
@@ -59,6 +60,7 @@ export default function RsaComponent({lang,}: { lang: string }) {
     const [historyOpen, setHistoryOpen] = React.useState(false)
     const [history, setHistory] = useAtom(cryptoHistoryAtom)
     const [lastOperation, setLastOperation] = React.useState<'encode' | 'decode'>('encode')
+    const [historyEnabled] = React.useState(() => isHistoryEnabled())
 
     const getErrorText = (errorCode: string): string => {
         switch (errorCode) {
@@ -152,7 +154,7 @@ export default function RsaComponent({lang,}: { lang: string }) {
     const clearAll = () => {
         setSource('')
         setOutput('')
-        setRsaKey({privateKey: '', publicKey: ''})
+        setRsaKey({ privateKey: '', publicKey: '' })
         setError(null)
         setTextTooLong(false)
     }
@@ -162,7 +164,7 @@ export default function RsaComponent({lang,}: { lang: string }) {
     }
 
     const downloadKey = (content: string, filename: string) => {
-        const blob = new Blob([content], {type: 'text/plain'})
+        const blob = new Blob([content], { type: 'text/plain' })
         const url = URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.href = url
@@ -185,35 +187,35 @@ export default function RsaComponent({lang,}: { lang: string }) {
         <textarea className={rsaStyles.sourceText} placeholder={
             transKey(lang, transToolsCommonInputPlaceholder)
         } value={source}
-                  onChange={(event) => {
-                      setSource(event.target.value)
-                      checkTextLength(event.target.value)
-                  }}/>
+            onChange={(event) => {
+                setSource(event.target.value)
+                checkTextLength(event.target.value)
+            }} />
 
         <div className={rsaStyles.keyArea}>
             <textarea className={rsaStyles.keyTextarea}
-                      value={rsaKey.publicKey}
-                      placeholder={transKey(lang, transToolsRsaPublicKeyPlaceholder)}
-                      onChange={(event) =>
-                          setRsaKey({
-                              ...rsaKey,
-                              publicKey: event.target.value
-                          })}/>
+                value={rsaKey.publicKey}
+                placeholder={transKey(lang, transToolsRsaPublicKeyPlaceholder)}
+                onChange={(event) =>
+                    setRsaKey({
+                        ...rsaKey,
+                        publicKey: event.target.value
+                    })} />
             <textarea className={rsaStyles.keyTextarea}
-                      value={rsaKey.privateKey}
-                      placeholder={transKey(lang, transToolsRsaKeyPlaceholder)}
-                      onChange={(event) =>
-                          setRsaKey({
-                              ...rsaKey,
-                              privateKey: event.target.value
-                          })}/>
+                value={rsaKey.privateKey}
+                placeholder={transKey(lang, transToolsRsaKeyPlaceholder)}
+                onChange={(event) =>
+                    setRsaKey({
+                        ...rsaKey,
+                        privateKey: event.target.value
+                    })} />
         </div>
 
         <div className={rsaStyles.configRow}>
             <label className={rsaStyles.configLabel}>
                 {transKey(lang, transToolsRsaKeyLength)}
                 <select className={rsaStyles.configSelect} value={rsaKeyLength}
-                        onChange={(e) => setRsaKeyLength(Number(e.target.value))}>
+                    onChange={(e) => setRsaKeyLength(Number(e.target.value))}>
                     {RSA_KEY_LENGTHS.map(k => <option key={k.value} value={k.value}>{k.label}</option>)}
                 </select>
             </label>
@@ -221,7 +223,7 @@ export default function RsaComponent({lang,}: { lang: string }) {
             <Dialog>
                 <DialogTrigger asChild>
                     <Button variant="outline" size="sm" disabled={!rsaKey.publicKey && !rsaKey.privateKey}>
-                        <Eye size={14}/>
+                        <Eye size={14} />
                         {transKey(lang, transToolsRsaViewKeyDetail)}
                     </Button>
                 </DialogTrigger>
@@ -233,31 +235,31 @@ export default function RsaComponent({lang,}: { lang: string }) {
                         <h4>{transKey(lang, transToolsRsaPublicKey)}</h4>
                         <div className={rsaStyles.dialogButtonRow}>
                             <Button variant="outline" size="sm"
-                                    onClick={() => copyToClipboard(rsaKey.publicKey)}>
-                                <Copy size={14}/>
+                                onClick={() => copyToClipboard(rsaKey.publicKey)}>
+                                <Copy size={14} />
                                 {transKey(lang, transToolsCopyResult)}
                             </Button>
                             <Button variant="outline" size="sm"
-                                    onClick={() => downloadKey(rsaKey.publicKey, 'rsa_public.pem')}>
+                                onClick={() => downloadKey(rsaKey.publicKey, 'rsa_public.pem')}>
                                 Download PEM
                             </Button>
                         </div>
-                        <textarea className={rsaStyles.dialogTextarea} value={rsaKey.publicKey} readOnly/>
+                        <textarea className={rsaStyles.dialogTextarea} value={rsaKey.publicKey} readOnly />
                     </div>
                     <div className={rsaStyles.dialogKeySection}>
                         <h4>{transKey(lang, transToolsRsaPrivateKey)}</h4>
                         <div className={rsaStyles.dialogButtonRow}>
                             <Button variant="outline" size="sm"
-                                    onClick={() => copyToClipboard(rsaKey.privateKey)}>
-                                <Copy size={14}/>
+                                onClick={() => copyToClipboard(rsaKey.privateKey)}>
+                                <Copy size={14} />
                                 {transKey(lang, transToolsCopyResult)}
                             </Button>
                             <Button variant="outline" size="sm"
-                                    onClick={() => downloadKey(rsaKey.privateKey, 'rsa_private.pem')}>
+                                onClick={() => downloadKey(rsaKey.privateKey, 'rsa_private.pem')}>
                                 Download PEM
                             </Button>
                         </div>
-                        <textarea className={rsaStyles.dialogTextarea} value={rsaKey.privateKey} readOnly/>
+                        <textarea className={rsaStyles.dialogTextarea} value={rsaKey.privateKey} readOnly />
                     </div>
                 </DialogContent>
             </Dialog>
@@ -278,51 +280,53 @@ export default function RsaComponent({lang,}: { lang: string }) {
                 setSource(output);
                 setOutput(currentSource);
             }}>
-                <ArrowUpDown size={20}/>
+                <ArrowUpDown size={20} />
             </Button>
             <Button variant="ghost" size="icon" onClick={copyResult} title={transKey(lang, transToolsCopyResult)}>
                 {copied ? <span className={rsaStyles.copiedText}>{transKey(lang, transToolsCopied)}</span> :
-                    <Copy size={16}/>}
+                    <Copy size={16} />}
             </Button>
             <Button variant="ghost" size="icon" onClick={clearAll} title={transKey(lang, transToolsClearAll)}>
-                <Trash2 size={16}/>
+                <Trash2 size={16} />
             </Button>
-            {loading && <Loader2 size={16} className={rsaStyles.spinner}/>}
+            {loading && <Loader2 size={16} className={rsaStyles.spinner} />}
         </div>
 
         <textarea className={rsaStyles.targetText} placeholder={
             transKey(lang, transToolsCommonResultPlaceholder)
         } value={output} onChange={(event) =>
-            setOutput(event.target.value)}/>
+            setOutput(event.target.value)} />
 
-        {history.length > 0 && <Collapsible open={historyOpen} onOpenChange={setHistoryOpen}>
-            <CollapsibleTrigger asChild>
-                <Button variant="ghost" size="sm" className={rsaStyles.historyTrigger}>
-                    <History size={14}/>
-                    {transKey(lang, transToolsHistoryTitle)}
-                </Button>
-            </CollapsibleTrigger>
-            <CollapsibleContent>
-                <div className={rsaStyles.historyList}>
-                    {history.map((item) => (
-                        <div key={item.timestamp} className={rsaStyles.historyItem}>
-                            <span className={rsaStyles.historyOp}>
-                                {item.tool === 'aes' ? 'AES' : 'RSA'} {item.operation === 'encode' ? '🔒' : '🔓'}
-                            </span>
-                            <span className={rsaStyles.historyKey}>{item.keyPreview}</span>
-                            <span className={rsaStyles.historyResult}>{item.resultPreview}</span>
-                            <span className={rsaStyles.historyTime}>
-                                {new Date(item.timestamp).toLocaleTimeString()}
-                            </span>
-                            <Button variant="ghost" size="icon"
+        {!historyEnabled
+            ? <p className={rsaStyles.historyDisabled}>{transKey(lang, transHistoryDisabled)}</p>
+            : history.length > 0 && <Collapsible open={historyOpen} onOpenChange={setHistoryOpen}>
+                <CollapsibleTrigger asChild>
+                    <Button variant="ghost" size="sm" className={rsaStyles.historyTrigger}>
+                        <History size={14} />
+                        {transKey(lang, transToolsHistoryTitle)}
+                    </Button>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                    <div className={rsaStyles.historyList}>
+                        {history.map((item) => (
+                            <div key={item.timestamp} className={rsaStyles.historyItem}>
+                                <span className={rsaStyles.historyOp}>
+                                    {item.tool === 'aes' ? 'AES' : 'RSA'} {item.operation === 'encode' ? '🔒' : '🔓'}
+                                </span>
+                                <span className={rsaStyles.historyKey}>{item.keyPreview}</span>
+                                <span className={rsaStyles.historyResult}>{item.resultPreview}</span>
+                                <span className={rsaStyles.historyTime}>
+                                    {new Date(item.timestamp).toLocaleTimeString()}
+                                </span>
+                                <Button variant="ghost" size="icon"
                                     onClick={() => setHistory(history.filter(h => h.timestamp !== item.timestamp))}>
-                                <X size={12}/>
-                            </Button>
-                        </div>
-                    ))}
-                </div>
-            </CollapsibleContent>
-        </Collapsible>}
+                                    <X size={12} />
+                                </Button>
+                            </div>
+                        ))}
+                    </div>
+                </CollapsibleContent>
+            </Collapsible>}
     </div>
 }
 
@@ -465,6 +469,12 @@ const rsaStyles = {
         width: 100%;
         justify-content: flex-start;
         color: var(--text-secondary-color);
+    `,
+    historyDisabled: css`
+        font-size: 12px;
+        color: var(--text-disabled-color);
+        text-align: center;
+        padding: 6px 0;
     `,
     historyList: css`
         display: flex;

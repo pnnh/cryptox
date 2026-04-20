@@ -10,6 +10,17 @@ export type CryptoHistoryItem = {
 
 const MAX_HISTORY = 10
 
+export function isHistoryEnabled(): boolean {
+    if (typeof document === 'undefined') return false;
+    try {
+        return document.cookie
+            .split("; ")
+            .some((row) => row === "cookie-consent=accepted");
+    } catch {
+        return false;
+    }
+}
+
 export const cryptoHistoryAtom = atomWithStorage<CryptoHistoryItem[]>('cryptox-history', [], {
     getItem: (key) => {
         const stored = localStorage.getItem(key)
@@ -21,6 +32,7 @@ export const cryptoHistoryAtom = atomWithStorage<CryptoHistoryItem[]>('cryptox-h
         }
     },
     setItem: (key, value) => {
+        if (!isHistoryEnabled()) return;
         localStorage.setItem(key, JSON.stringify(value))
     },
     removeItem: (key) => {

@@ -308,6 +308,17 @@ export const transToolsHistoryTitle: LangTextValue = {
     "zh-TW": "操作歷史"
 }
 
+export const transHistoryDisabled: LangTextValue = {
+    "zh": "历史记录已禁用（Cookie 已拒绝）",
+    "en": "History disabled (cookies declined)",
+    "es": "Historial desactivado (cookies rechazadas)",
+    "fr": "Historique désactivé (cookies refusés)",
+    "ja": "履歴は無効です（Cookieを拒否しました）",
+    "de-DE": "Verlauf deaktiviert (Cookies abgelehnt)",
+    "pt-PT": "Histórico desativado (cookies recusados)",
+    "zh-TW": "歷史記錄已停用（Cookie 已拒絕）"
+}
+
 export const transCryptoButtonLoading: LangTextValue = {
     "zh": "处理中...",
     "en": "Processing...",
